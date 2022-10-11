@@ -1,0 +1,31 @@
+body {
+    display: block;
+    overflow-x: hidden;
+    background-color: white ;
+}
+nav {
+    background-color: white;
+}
+.navbar-brand img {
+    max-height: 70px;
+}
+.navbar-brand {
+    font-size: 24px;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: #683aa4;
+}
+nav ul li a {
+    color: #a9a9a9;
+    font-size: 22px;
+    margin: auto 10px;
+}
+
+
+.nav-link {
+    color: black;
+}
+
+.nav-link:hover{
+    color: gray;
+}
