@@ -11,7 +11,7 @@ body{
         background-color: sandybrown;
     }
     20% {
-        background-color: green;
+        background-color: saddlebrown;
     }
     40% {
         background-color: pink;
@@ -20,7 +20,7 @@ body{
         background-color: orange;
     }
     80% {
-        background-color: yellow;
+        background-color: darkkhaki;
     }
     100% {
         background-color: sandybrown;
@@ -86,6 +86,7 @@ body{
 .card:hover{
     opacity: 85%;
 }
+
 
 
 
