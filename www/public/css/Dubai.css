@@ -1,3 +1,11 @@
+.navbar {
+    border-bottom: 1px solid grey;
+}
+
+.navbar-brand img {
+    width: 50px;
+}
+
 *{
     font-family: montserrat;
 
@@ -11,7 +19,7 @@ body{
         background-color: sandybrown;
     }
     20% {
-        background-color: green;
+        background-color: saddlebrown;
     }
     40% {
         background-color: pink;
@@ -20,7 +28,7 @@ body{
         background-color: orange;
     }
     80% {
-        background-color: yellow;
+        background-color: darkkhaki;
     }
     100% {
         background-color: sandybrown;
@@ -32,7 +40,6 @@ body{
 }
 
 
-
 .w-100{
     height: 100vh;
 }
@@ -40,19 +47,16 @@ body{
     font-size: 50px;
 }
 
-
-
 .card:hover{
     opacity: 85%;
 }
 
 
 
-
-
 /* responzivne css */
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
+
     .card{
         margin-bottom: 30px;
     }
@@ -63,6 +67,9 @@ body{
 
 @media only screen and (max-width: 767px){
 
+    .about-text {
+        padding-top: 50px;
+    }
     .card{
         margin-bottom: 50px ;
     }

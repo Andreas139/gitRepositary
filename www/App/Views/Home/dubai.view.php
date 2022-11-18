@@ -1,16 +1,18 @@
-<!DOCTYPE html>
-<html lang="zxx">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title</title>
-  <link rel="stylesheet" href="Dubai.css">
+<?php
+$layout = 'dubai';
+/** @var Post[] $data */
+/** @var string $contentHTML */
+/** @var \App\Core\IAuthenticator $auth */
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-  <!-- Bootstrap icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-</head>
-<body>
+?>
+<?php
+use App\Models\Post;
+
+/** @var \App\Core\IAuthenticator $auth */
+?>
+
+
+
 
 
 <section id="services" class="services section-padding">
@@ -78,7 +80,7 @@
 
 
 
-      <div class="col-12 col-md-12 col-lg-4">
+      <div class="col-12 col-md-12 col-lg-4">;
         <div class="card text-light text-center bg-dark pb-2">
           <div class="card-body text-white">
             <div class="img-area mb-4">
@@ -86,7 +88,35 @@
             <h3 class="card-title">Top services</h3>
             <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt itaque nostrum optio qui vel. Ad animi, autem consequuntur cumque doloribus et expedita inventore ipsum perferendis
               possimus quisquam, repellat, sit temporibus?</p>
-            <a href="BurjKhalifa.html" class="btn bg-warning text-dark" role="button">This One </a>
+
+
+                 <?php if ($auth->isLogged()) { ?>
+
+
+                              <form method="post" action="?c=posts&a=storeText">
+
+                                  <label for="">
+                                      <input type="hidden" name="pouzivatel" value="<?= $auth->getLoggedUserName() ?>">
+                                  </label>
+
+                                  <label for="">
+                                      <input type="hidden" name="nazovZajazdu" value="Burj Khalifa">
+                                  </label>
+
+                                  <input type="submit" value="Odoslat">
+
+                              </form>
+
+
+
+                  <?php } else  { ?>
+
+
+
+
+
+              <?php } ?>
+
 
           </div>
         </div>
@@ -160,7 +190,3 @@
 
   </div>
 </section>
-
-
-</body>
-</html>
