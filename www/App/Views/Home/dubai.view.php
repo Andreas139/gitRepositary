@@ -1,12 +1,12 @@
 <?php
 $layout = 'dubai';
-/** @var Post[] $data */
+/** @var zajazdy[] $data */
 /** @var string $contentHTML */
 /** @var \App\Core\IAuthenticator $auth */
 
 ?>
 <?php
-use App\Models\Post;
+use App\Models\zajazdy;
 
 /** @var \App\Core\IAuthenticator $auth */
 ?>
@@ -93,14 +93,14 @@ use App\Models\Post;
                  <?php if ($auth->isLogged()) { ?>
 
 
-                              <form method="post" action="?c=posts&a=storeText">
+                              <form method="post" action="?c=posts&a=ulozZajazd">
 
                                   <label for="">
                                       <input type="hidden" name="pouzivatel" value="<?= $auth->getLoggedUserName() ?>">
                                   </label>
 
                                   <label for="">
-                                      <input type="hidden" name="nazovZajazdu" value="Burj Khalifa">
+                                      <input type="hidden" name="nazovZajazdu" value="Dubai">
                                   </label>
 
                                   <input type="submit" value="Odoslat">

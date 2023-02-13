@@ -44,6 +44,11 @@ if (!empty($_POST['meno']) &&
 
 ?>
 
+<?php
+/** @var Post[] $data */
+/** @var \App\Core\IAuthenticator $auth */
+?>
+
 
 
 <html>
@@ -68,18 +73,17 @@ if (!empty($_POST['meno']) &&
                     <div class="card-body">
                         <h5 class="card-title">Registračný formulár</h5>
                         <div>
-                            <form method="post">
+                            <form method="post" action="?c=Register&a=register">
                                 <input class="form-control mt-1" type="text" name="meno" placeholder="Meno ">
                                 <input class="form-control mt-1" type="text" name="priezvisko" placeholder="Priezvisko ">
                                 <input class="form-control mt-1 mb-5" type="text" name="email" placeholder="Email ">
-
                                 <input class="form-control mt-1" type="text" name="pouzivatelskeMeno" placeholder="Použivatelské meno ">
                                 <div class="form-group">
 
                                     <input type="password" name="heslo" class="form-control mt-1" id="exampleInputPassword1" placeholder="Heslo">
                                 </div>
 
-                                <input class="btn btn-primary mt-3" type="submit" value="Odoslat">
+                                <input  class="btn btn-primary mt-3" type="submit" value="Odoslat"  >
                             </form>
                         </div>
                     </div>

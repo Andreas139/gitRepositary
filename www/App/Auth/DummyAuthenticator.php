@@ -23,6 +23,8 @@ class DummyAuthenticator implements IAuthenticator
         session_start();
     }
 
+
+
     /**
      * Verify, if the user is in DB and has his password is correct
      * @param $login
@@ -30,8 +32,10 @@ class DummyAuthenticator implements IAuthenticator
      * @return bool
      * @throws \Exception
      */
-    function login($login, $password): bool
+    function login($login, $password, $klienti): bool
     {
+
+
         if ($login == self::LOGIN && password_verify($password, self::PASSWORD_HASH)) {
             $_SESSION['user'] = self::USERNAME;
             return true;

@@ -15,7 +15,7 @@ interface IAuthenticator
      * @param $pass
      * @return bool
      */
-    function login($userLogin, $pass): bool;
+    function login($userLogin, $pass, $klienti): bool;
 
     /**
      * Perform user login

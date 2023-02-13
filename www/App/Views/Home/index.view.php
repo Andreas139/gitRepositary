@@ -116,7 +116,11 @@ $layout = 'home';
 
 <!--Portfolio section -->
 
+
+
 <section id="portfolio" class="portfolio section-padding ">
+
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -288,7 +292,27 @@ $layout = 'home';
 <footer class="bg-dark p-2 text-center">
     <div class="container">
         <div class="text-white"> All Rights Reserved @Cestovka</div>
+
     </div>
+
+    <div>
+        <script>
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    'X-RapidAPI-Key': '9f27468136msh6a32888270af132p15b93ajsn747c484fe2ce',
+                    'X-RapidAPI-Host': 'matchilling-chuck-norris-jokes-v1.p.rapidapi.com'
+                }
+            };
+
+            fetch('https://matchilling-chuck-norris-jokes-v1.p.rapidapi.com/jokes/random', options)
+                .then(response => response.json())
+                .then(response => console.log(response))
+                .catch(err => console.error(err));
+        </script>
+    </div>
+
 </footer>
 
 

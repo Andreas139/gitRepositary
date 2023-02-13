@@ -4,6 +4,7 @@ namespace App\Core;
 
 use App\Core\DB\Connection;
 use App\Helpers\Inflect;
+use App\Models\klienti;
 use PDO;
 use PDOException;
 
@@ -15,7 +16,7 @@ use PDOException;
  */
 abstract class Model implements \JsonSerializable
 {
-    private static ?Connection $connection = null;
+    protected static ?Connection $connection = null;
 
     /**
      * Get array of column names from the associated model table
@@ -42,7 +43,8 @@ abstract class Model implements \JsonSerializable
     public static function getTableName(): string
     {
         $arr = explode("\\", get_called_class());
-        return Inflect::pluralize(strtolower(end($arr)));
+        //return Inflect::pluralize(strtolower(end($arr)));
+        return strtolower(end($arr));
     }
 
     /**
@@ -59,7 +61,7 @@ abstract class Model implements \JsonSerializable
      * @return null
      * @throws \Exception
      */
-    private static function connect(): void
+    protected static function connect(): void
     {
         self::$connection = Connection::connect();
     }
@@ -76,6 +78,7 @@ abstract class Model implements \JsonSerializable
         self::connect();
         try {
             $sql = "SELECT * FROM `" . static::getTableName() . "`" . ($whereClause == '' ? '' : " WHERE $whereClause") . ($orderBy == '' ? '' : " ORDER BY $orderBy");
+            // echo $sql;
             $stmt = self::$connection->prepare($sql);
             $stmt->execute($whereParams);
             $models = $stmt->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, static::class);
@@ -107,6 +110,44 @@ abstract class Model implements \JsonSerializable
         }
     }
 
+    static public function getOneByTwo($klienti_id_klienta, $zajazdy_id_zajazdu): ?static
+    {
+        if ($klienti_id_klienta == null) return null;
+
+        self::connect();
+        try {
+            $sql = "SELECT * FROM `" . static::getTableName() . "` WHERE `klienti_id_klienta`=? AND
+             `zajazdy_id_zajazdu`=? ";
+            $stmt = self::$connection->prepare($sql);
+            $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, static::class);
+            $stmt->execute([$klienti_id_klienta,$zajazdy_id_zajazdu]);
+            return $stmt->fetch() ?: null;
+        } catch (PDOException $e) {
+            throw new \Exception('Query failed: ' . $e->getMessage(), 0, $e);
+        }
+    }
+
+    static public function getOneByColumnName($columnName,$value): ?static
+    {
+        if ($columnName == null) return null;
+
+        self::connect();
+        try {
+            $sql = "SELECT * FROM `" . static::getTableName() . "` WHERE ".$columnName."=?";
+            $stmt = self::$connection->prepare($sql);
+            $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, static::class);
+            $stmt->execute([$value]);
+            return $stmt->fetch() ?: null;
+        } catch (PDOException $e) {
+            throw new \Exception('Query failed: ' . $e->getMessage(), 0, $e);
+        }
+    }
+
+
+
+
+
+
     /**
      * Save the current model to DB (if model id is set, update it, else create a new model)
      * @return void
@@ -135,6 +176,27 @@ abstract class Model implements \JsonSerializable
                 $stmt = self::$connection->prepare($sql);
                 $stmt->execute($data);
             }
+        } catch (PDOException $e) {
+            throw new \Exception('Query failed: ' . $e->getMessage(), 0, $e);
+        }
+        echo self::getTableName();
+        echo self::getPkColumnName();
+    }
+
+    public function insertFromForm(array $formData): void
+    {
+        self::connect();
+        try {
+            $data = array_fill_keys(static::getDbColumns(), null);
+            foreach ($data as $key => &$item) {
+                $item = isset($formData[$key]) ? $formData[$key] : null;
+            }
+            $arrColumns = array_map(fn($item) => (':' . $item), array_keys($data));
+            $columns = '`' . implode('`,`', array_keys($data)) . "`";
+            $params = implode(',', $arrColumns);
+            $sql = "INSERT INTO `" . static::getTableName() . "` ($columns) VALUES ($params)";
+            $stmt = self::$connection->prepare($sql);
+            $stmt->execute($data);
         } catch (PDOException $e) {
             throw new \Exception('Query failed: ' . $e->getMessage(), 0, $e);
         }

@@ -22,7 +22,6 @@ class HomeController extends AControllerBase
         //  return true;
         switch ($action)
         {
-
             case "contact":
                 return true;
             case "index":

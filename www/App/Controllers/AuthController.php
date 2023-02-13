@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Config\Configuration;
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
+use App\Models\klienti;
 
 /**
  * Class AuthController
@@ -31,7 +32,10 @@ class AuthController extends AControllerBase
         $formData = $this->app->getRequest()->getPost();
         $logged = null;
         if (isset($formData['submit'])) {
-            $logged = $this->app->getAuth()->login($formData['login'], $formData['password']);
+            $klienti = new klienti();
+
+
+            $logged = $this->app->getAuth()->login($formData['login'], $formData['password'],$klienti);
             if ($logged) {
                 return $this->redirect('?c=posts');
             }
